@@ -1,0 +1,63 @@
+$ make help     // get help
+$ make          // compile
+$ make start-hd // boot it on qemu with hard disk image
+$ make debug-hd // debug it via qemu & gdb, you'd start gdb to connect it.
+
+$ gdb images/kernel.sym
+(gdb) target remote :1234
+(gdb) b main
+(gdb) c
+
+                    // to debug the bootsect or setup part, please load the symbol files
+$ gdb boot/bootsect.sym
+$ gdb boot/setup.sym
+
+
+Ó²ÅÌÆô¶¯:
+qemu-system-i386 -m 16M -boot a -fda images/Image -hda rootfs/hdc-0.11.img
+
+debug:
+qemu-system-i386 -m 16M -boot a -fda images/Image -hda rootfs/hdc-0.11.img -s -S
+
+ÈíÅÌÆô¶¯:
+qemu-system-i386 -m 16M -boot a -fda images/Image -fdb rootfs/rootimage-0.11
+
+
+root@ubuntu16:/home/linux-0.11-lab# make help
+------------------Linux 0.11 Lab (http://tinylab.org/linux-0.11-lab)------------------
+
+     :: Compile ::
+
+     make --generate a kernel floppy Image with a fs on hda1
+     make clean -- clean the object files
+     make distclean -- only keep the source code files
+
+     :: Test ::
+
+     make start -- start the kernel in vm (qemu/bochs)
+     make start-fd -- start the kernel with fs in floppy
+     make start-hd -- start the kernel with fs in hard disk
+
+
+     :: Debug ::
+
+     make debug -- debug the kernel in qemu/bochs & gdb at port 1234
+     make debug-fd -- debug the kernel with fs in floppy
+     make debug-hd -- debug the kernel with fs in hard disk
+
+     make switch -- switch the emulator: qemu and bochs
+
+     :: Read ::
+
+     make cscope -- genereate the cscope index databases
+     make tags -- generate the tag file
+     make cg -- generate callgraph of the default main entry
+     make cg f=func d=dir|file b=browser -- generate callgraph of func in file/directory
+
+     :: More ::
+
+     >>> README.md <<<
+
+     ~ Enjoy It ~
+
+-------------------Linux 0.11 Lab (http://tinylab.org/linux-0.11-lab)-------------------
